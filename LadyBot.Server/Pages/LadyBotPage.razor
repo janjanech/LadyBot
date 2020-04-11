@@ -1,0 +1,33 @@
+﻿@page "/ladybot"
+@using LadyBot.Implementation
+@using LadyBot.Program
+@using LadyBotProgram = LadyBot.Program.Program
+
+<h3>LadyBotPage</h3>
+
+<LadyBotRun Width="10" Height="10" @ref="aPlayground" />
+
+<button @onclick="Run">Run</button>
+
+@code
+{
+    private LadyBotRun aPlayground;
+
+    private async Task Run()
+    {
+        var program = new LadyBotProgram();
+        //program.AddCommand(Command.MoveForward);
+        //program.AddCommand(Command.RotateLeft);
+        //program.AddCommand(Command.MoveForward);
+        //program.AddCommand(Command.RotateRight);
+        //program.AddCommand(Command.MoveForward);
+        //program.AddCommand(Command.MoveForward);
+
+        program.AddCommand(Command.MoveUp);
+        program.AddCommand(Command.MoveLeft);
+        program.AddCommand(Command.MoveRight);
+        program.AddCommand(Command.MoveDown);
+
+        await this.aPlayground.RunProgramAsync(program);
+    }
+}
