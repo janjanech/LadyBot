@@ -13,6 +13,8 @@
     <LadyBotCharacter Playground="@this" @ref="this.aLadyBot" />
 </svg>
 
+<button @onclick="this.RunProgramAsync">Run</button>
+
 @code
 {
     [Parameter]
@@ -22,8 +24,8 @@
 
     private LadyBotCharacter aLadyBot;
 
-    public Task RunProgramAsync(Program program)
+    public Task RunProgramAsync()
     {
-        return this.aLadyBot.RunProgramAsync(program);
+        return this.aLadyBot.RunProgramAsync();
     }
 }

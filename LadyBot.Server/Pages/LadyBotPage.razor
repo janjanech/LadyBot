@@ -1,33 +1,25 @@
 ﻿@page "/ladybot"
 @using LadyBot.Implementation
 @using LadyBot.Program
-@using LadyBotProgram = LadyBot.Program.Program
+@inject LadyBotProgram Program
 
 <h3>LadyBotPage</h3>
 
-<LadyBotRun Width="10" Height="10" @ref="aPlayground" />
-
-<button @onclick="Run">Run</button>
+<LadyBotRun Width="10" Height="10" />
 
 @code
 {
-    private LadyBotRun aPlayground;
+    #region Overrides of ComponentBase
 
-    private async Task Run()
+    protected override void OnInitialized()
     {
-        var program = new LadyBotProgram();
-        //program.AddCommand(Command.MoveForward);
-        //program.AddCommand(Command.RotateLeft);
-        //program.AddCommand(Command.MoveForward);
-        //program.AddCommand(Command.RotateRight);
-        //program.AddCommand(Command.MoveForward);
-        //program.AddCommand(Command.MoveForward);
+        base.OnInitialized();
 
-        program.AddCommand(Command.MoveUp);
-        program.AddCommand(Command.MoveLeft);
-        program.AddCommand(Command.MoveRight);
-        program.AddCommand(Command.MoveDown);
-
-        await this.aPlayground.RunProgramAsync(program);
+        Program.AddCommand(LadyBotCommand.MoveUp);
+        Program.AddCommand(LadyBotCommand.MoveLeft);
+        Program.AddCommand(LadyBotCommand.MoveRight);
+        Program.AddCommand(LadyBotCommand.MoveDown);
     }
+
+    #endregion
 }

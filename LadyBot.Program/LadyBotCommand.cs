@@ -1,6 +1,6 @@
 ﻿namespace LadyBot.Program
 {
-	public enum Command
+	public enum LadyBotCommand
 	{
 		MoveForward,
 		RotateLeft,
