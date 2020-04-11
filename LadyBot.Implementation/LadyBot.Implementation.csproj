@@ -13,11 +13,6 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <ProjectReference Include="..\LadyBot.Program\LadyBot.Program.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,24 @@
+﻿@using Microsoft.JSInterop
+@inject IJSRuntime Js
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private bool aFirstTime = true;
+
+    #region Overrides of ComponentBase
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (this.aFirstTime)
+            await this.Js.InvokeVoidAsync("beginAnimations", this.Id);
+
+        this.aFirstTime = false;
+    }
+
+    #endregion
+
+}
