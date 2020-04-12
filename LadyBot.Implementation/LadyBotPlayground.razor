@@ -1,28 +1,24 @@
 ﻿@using LadyBot.Program
 @namespace LadyBot.Implementation
 @inject LadyBotProgram Program
+@inject LadyBotMap Map
 
-<svg viewBox="-0.1 -0.1 @(this.Width).1 @(this.Height).1" style="width: auto; height: auto; max-width: 100%; max-height: 80vh">
-    @for (int y = 0; y < this.Height; y++)
+<svg viewBox="-0.1 -0.1 @(this.Map.Width).1 @(this.Map.Height).1" style="width: auto; height: auto; max-width: 100%; max-height: 80vh">
+    @for (int y = 0; y < this.Map.Height; y++)
     {
-        @for (int x = 0; x < this.Width; x++)
+        @for (int x = 0; x < this.Map.Width; x++)
         {
             <rect x="@x" y="@y" width="1" height="1" style="stroke: black; stroke-width: 1px; opacity: 1; fill: none" vector-effect="non-scaling-stroke" />
         }
     }
 
-    <LadyBotCharacter Playground="@this" @ref="this.aLadyBot" />
+    <LadyBotCharacter @ref="this.aLadyBot" />
 </svg>
 
 <button @onclick="this.RunProgramAsync">Run</button>
 
 @code
 {
-    [Parameter]
-    public int Width { get; set; }
-    [Parameter]
-    public int Height { get; set; }
-
     private LadyBotCharacter aLadyBot;
 
     public async Task RunProgramAsync()
