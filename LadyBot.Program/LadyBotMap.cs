@@ -11,6 +11,8 @@
 			this.InitialY = this.Height - 1;
 
 			this.InitialRotation = 0;
+
+			this.KeyboardType = KeyboardType.Rotational;
 		}
 
 		public int Width { get; }
@@ -20,5 +22,7 @@
 		public int InitialY { get; }
 
 		public int InitialRotation { get; }
+
+		public KeyboardType KeyboardType { get; }
 	}
 }
