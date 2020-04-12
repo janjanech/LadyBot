@@ -1,0 +1,50 @@
+﻿@using LadyBot.Program
+@namespace LadyBot.Implementation
+@inject LadyBotProgram Program
+@inject LadyBotProgramState ProgramState
+
+<div class="border">
+    @foreach (var (idx, command) in this.Program.Select((x, idx) => (idx, x)))
+    {
+        @switch (command)
+        {
+            case LadyBotCommand.MoveForward:
+                <img src="/_content/LadyBot.Implementation/commands/move_up.svg" width="100" height="100" class="@(this.ProgramState.IsCurrent(idx) ? "bg-primary" : "")"/>
+                break;
+            case LadyBotCommand.RotateLeft:
+                <img src="/_content/LadyBot.Implementation/commands/rotate_left.svg" width="100" height="100" class="@(this.ProgramState.IsCurrent(idx) ? "bg-primary" : "")"/>
+                break;
+            case LadyBotCommand.RotateRight:
+                <img src="/_content/LadyBot.Implementation/commands/rotate_right.svg" width="100" height="100" class="@(this.ProgramState.IsCurrent(idx) ? "bg-primary" : "")"/>
+                break;
+            case LadyBotCommand.MoveLeft:
+                <img src="/_content/LadyBot.Implementation/commands/move_left.svg" width="100" height="100" class="@(this.ProgramState.IsCurrent(idx) ? "bg-primary" : "")"/>
+                break;
+            case LadyBotCommand.MoveRight:
+                <img src="/_content/LadyBot.Implementation/commands/move_right.svg" width="100" height="100" class="@(this.ProgramState.IsCurrent(idx) ? "bg-primary" : "")"/>
+                break;
+            case LadyBotCommand.MoveUp:
+                <img src="/_content/LadyBot.Implementation/commands/move_up.svg" width="100" height="100" class="@(this.ProgramState.IsCurrent(idx) ? "bg-primary" : "")"/>
+                break;
+            case LadyBotCommand.MoveDown:
+                <img src="/_content/LadyBot.Implementation/commands/move_down.svg" width="100" height="100" class="@(this.ProgramState.IsCurrent(idx) ? "bg-primary" : "")"/>
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+</div>
+
+@code
+{
+    #region Overrides of ComponentBase
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        this.ProgramState.OnCurrentChanged += this.StateHasChanged;
+    }
+
+    #endregion
+}

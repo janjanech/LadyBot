@@ -10,7 +10,7 @@
 			this.InitialX = this.Width - 1;
 			this.InitialY = this.Height - 1;
 
-			this.InitialRotation = 180;
+			this.InitialRotation = 0;
 		}
 
 		public int Width { get; }

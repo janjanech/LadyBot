@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-
-namespace LadyBot.Implementation
+﻿namespace LadyBot.Implementation
 {
 	internal abstract class LadyBotAnimation
 	{
