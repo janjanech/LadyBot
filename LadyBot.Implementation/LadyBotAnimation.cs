@@ -11,8 +11,11 @@ namespace LadyBot.Implementation
 		{
 			public Rotation(int oldRotation, int newRotation)
 			{
-				if ((newRotation - oldRotation + 360) % 360 > 180)
+				if (oldRotation > 180 && newRotation == 0)
+					newRotation = 360;
+				if (newRotation > 180 && oldRotation == 0)
 					newRotation -= 360;
+
 				this.OldRotation = oldRotation;
 				this.NewRotation = newRotation;
 			}
