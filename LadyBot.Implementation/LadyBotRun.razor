@@ -1,5 +1,6 @@
 ﻿@using LadyBot.Program
 @namespace LadyBot.Implementation
+@inject LadyBotProgram Program
 
 <svg viewBox="-0.1 -0.1 @(this.Width).1 @(this.Height).1" style="width: auto; height: auto; max-width: 100%; max-height: 80vh">
     @for (int y = 0; y < this.Height; y++)
@@ -24,8 +25,41 @@
 
     private LadyBotCharacter aLadyBot;
 
-    public Task RunProgramAsync()
+    public async Task RunProgramAsync()
     {
-        return this.aLadyBot.RunProgramAsync();
+        this.aLadyBot.Reset();
+        foreach (var command in this.Program)
+        {
+            switch (command)
+            {
+                case LadyBotCommand.MoveForward:
+                    await this.aLadyBot.MoveForward();
+                    break;
+                case LadyBotCommand.RotateLeft:
+                    await this.aLadyBot.RotateLeft();
+                    break;
+                case LadyBotCommand.RotateRight:
+                    await this.aLadyBot.RotateRight();
+                    break;
+                case LadyBotCommand.MoveLeft:
+                    await this.aLadyBot.Rotate(Rotation.Left);
+                    await this.aLadyBot.MoveForward();
+                    break;
+                case LadyBotCommand.MoveRight:
+                    await this.aLadyBot.Rotate(Rotation.Right);
+                    await this.aLadyBot.MoveForward();
+                    break;
+                case LadyBotCommand.MoveUp:
+                    await this.aLadyBot.Rotate(Rotation.Up);
+                    await this.aLadyBot.MoveForward();
+                    break;
+                case LadyBotCommand.MoveDown:
+                    await this.aLadyBot.Rotate(Rotation.Down);
+                    await this.aLadyBot.MoveForward();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }

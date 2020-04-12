@@ -1,7 +1,4 @@
 ﻿@namespace LadyBot.Implementation
-@inject LadyBotProgram Program
-
-@using LadyBot.Program
 
 <g transform="translate(@this.aX, @this.aY)">
     @if (this.aAnimation is LadyBotAnimation.Translation translateTransform)
@@ -47,56 +44,13 @@
     [Parameter]
     public LadyBotRun Playground { get; set; }
 
-    const int RotationUp = 0;
-    const int RotationRight = 90;
-    const int RotationDown = 180;
-    const int RotationLeft = 270;
-
     private int aX;
     private int aY;
     private int aRotation;
 
     private LadyBotAnimation aAnimation;
 
-    public async Task RunProgramAsync()
-    {
-        this.Reset();
-        foreach (var command in this.Program)
-        {
-            switch (command)
-            {
-                case LadyBotCommand.MoveForward:
-                    await this.MoveForward();
-                    break;
-                case LadyBotCommand.RotateLeft:
-                    await this.Rotate(this.aRotation - 90);
-                    break;
-                case LadyBotCommand.RotateRight:
-                    await this.Rotate(this.aRotation + 90);
-                    break;
-                case LadyBotCommand.MoveLeft:
-                    await this.Rotate(RotationLeft);
-                    await this.MoveForward();
-                    break;
-                case LadyBotCommand.MoveRight:
-                    await this.Rotate(RotationRight);
-                    await this.MoveForward();
-                    break;
-                case LadyBotCommand.MoveUp:
-                    await this.Rotate(RotationUp);
-                    await this.MoveForward();
-                    break;
-                case LadyBotCommand.MoveDown:
-                    await this.Rotate(RotationDown);
-                    await this.MoveForward();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-    }
-
-    private void Reset()
+    public void Reset()
     {
         this.aX = this.Playground.Width - 1;
         this.aY = this.Playground.Height - 1;
@@ -105,23 +59,23 @@
         this.StateHasChanged();
     }
 
-    private async Task MoveForward()
+    public async Task MoveForward()
     {
         switch (this.aRotation)
         {
-            case RotationUp:
+            case Rotation.Up:
                 await this.DoAnimation(new LadyBotAnimation.Translation(this.aX, this.aY - 1));
                 this.aY--;
                 break;
-            case RotationRight:
+            case Rotation.Right:
                 await this.DoAnimation(new LadyBotAnimation.Translation(this.aX + 1, this.aY));
                 this.aX++;
                 break;
-            case RotationDown:
+            case Rotation.Down:
                 await this.DoAnimation(new LadyBotAnimation.Translation(this.aX, this.aY + 1));
                 this.aY++;
                 break;
-            case RotationLeft:
+            case Rotation.Left:
                 await this.DoAnimation(new LadyBotAnimation.Translation(this.aX - 1, this.aY));
                 this.aX--;
                 break;
@@ -132,15 +86,27 @@
         this.StateHasChanged();
     }
 
-    private async Task Rotate(int newRotation)
+    public async Task Rotate(int newRotation)
     {
         if (newRotation == this.aRotation)
             return;
+
+        newRotation = (newRotation + 360) % 360;
 
         await this.DoAnimation(new LadyBotAnimation.Rotation(this.aRotation, newRotation));
         this.aRotation = newRotation;
 
         this.StateHasChanged();
+    }
+
+    public async Task RotateRight()
+    {
+        await this.Rotate(this.aRotation + 90);
+    }
+
+    public async Task RotateLeft()
+    {
+        await this.Rotate(this.aRotation - 90);
     }
 
     #region Overrides of ComponentBase
