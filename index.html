@@ -8,7 +8,7 @@
     <base href="/LadyBot/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
-    <link href="manifest.json" rel="manifest" />
+    <link href="pwa.webmanifest" rel="manifest" />
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <link href="_content/LadyBot.Implementation/LadyBot.css" rel="stylesheet" />
     <script type="text/javascript" src="_content/LadyBot.Implementation/LadyBotFunctions.js"></script>
@@ -23,7 +23,7 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
-    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script>navigator.serviceWorker.register('pwa-worker.js');</script>
 </body>
 
 </html>
