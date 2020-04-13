@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LadyBot.Server", "LadyBot.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LadyBot.Program", "LadyBot.Program\LadyBot.Program.csproj", "{E9C18200-CD44-46CF-93E4-6EB1EB19A89F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor.Wasm", "Blazor.Wasm\Blazor.Wasm.csproj", "{5A660FDA-9983-466C-8BDB-9B12DB440F72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E9C18200-CD44-46CF-93E4-6EB1EB19A89F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9C18200-CD44-46CF-93E4-6EB1EB19A89F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9C18200-CD44-46CF-93E4-6EB1EB19A89F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A660FDA-9983-466C-8BDB-9B12DB440F72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A660FDA-9983-466C-8BDB-9B12DB440F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A660FDA-9983-466C-8BDB-9B12DB440F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A660FDA-9983-466C-8BDB-9B12DB440F72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
