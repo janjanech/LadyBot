@@ -23,6 +23,11 @@ jobs:
     - name: Publish
       working-directory: ./LadyBot.Wasm
       run: dotnet publish -c Release --no-build -o ../publish/
+    - name: Fix publish
+      working-directory: ./publish
+      run: |
+        mv wwwroot/* .
+        rmdir wwwroot
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
