@@ -3,7 +3,7 @@ using LadyBot.Program;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Blazor.Wasm
+namespace LadyBot.Wasm
 {
 	public class Program
 	{

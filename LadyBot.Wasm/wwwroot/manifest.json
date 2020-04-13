@@ -1,6 +1,6 @@
 {
-  "name": "Blazor.Wasm",
-  "short_name": "Blazor.Wasm",
+  "name": "LadyBot",
+  "short_name": "LadyBot",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
