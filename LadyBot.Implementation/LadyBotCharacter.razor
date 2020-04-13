@@ -63,26 +63,32 @@
         switch (this.aRotation)
         {
             case Rotation.Up:
-                await this.DoAnimation(new LadyBotAnimation.Translation(this.aX, this.aY - 1));
-                this.aY--;
+                await this.MoveInDirection(0, -1);
                 break;
             case Rotation.Right:
-                await this.DoAnimation(new LadyBotAnimation.Translation(this.aX + 1, this.aY));
-                this.aX++;
+                await this.MoveInDirection(1, 0);
                 break;
             case Rotation.Down:
-                await this.DoAnimation(new LadyBotAnimation.Translation(this.aX, this.aY + 1));
-                this.aY++;
+                await this.MoveInDirection(0, 1);
                 break;
             case Rotation.Left:
-                await this.DoAnimation(new LadyBotAnimation.Translation(this.aX - 1, this.aY));
-                this.aX--;
+                await this.MoveInDirection(-1, 0);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
 
         this.StateHasChanged();
+    }
+
+    private async Task MoveInDirection(int dx, int dy)
+    {
+        if (this.aX + dx < 0 || this.aX + dx >= this.Map.Width || this.aY + dy < 0 || this.aY + dy >= this.Map.Height)
+            throw new BumpedException();
+
+        await this.DoAnimation(new LadyBotAnimation.Translation(this.aX + dx, this.aY + dy));
+        this.aX += dx;
+        this.aY += dy;
     }
 
     public async Task Rotate(int newRotation)

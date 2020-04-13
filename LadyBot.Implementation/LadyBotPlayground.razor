@@ -28,43 +28,49 @@
 
     public async Task RunProgramAsync()
     {
-        this.aLadyBot.Reset();
-        foreach (var (idx, command) in this.Program.Select((x, idx) => (idx, x)))
+        try
         {
-            this.ProgramState.SetCurrentIndex(idx);
-
-            this.StateHasChanged();
-
-            switch (command)
+            this.aLadyBot.Reset();
+            foreach (var (idx, command) in this.Program.Select((x, idx) => (idx, x)))
             {
-                case LadyBotCommand.MoveForward:
-                    await this.aLadyBot.MoveForward();
-                    break;
-                case LadyBotCommand.RotateLeft:
-                    await this.aLadyBot.RotateLeft();
-                    break;
-                case LadyBotCommand.RotateRight:
-                    await this.aLadyBot.RotateRight();
-                    break;
-                case LadyBotCommand.MoveLeft:
-                    await this.aLadyBot.Rotate(Rotation.Left);
-                    await this.aLadyBot.MoveForward();
-                    break;
-                case LadyBotCommand.MoveRight:
-                    await this.aLadyBot.Rotate(Rotation.Right);
-                    await this.aLadyBot.MoveForward();
-                    break;
-                case LadyBotCommand.MoveUp:
-                    await this.aLadyBot.Rotate(Rotation.Up);
-                    await this.aLadyBot.MoveForward();
-                    break;
-                case LadyBotCommand.MoveDown:
-                    await this.aLadyBot.Rotate(Rotation.Down);
-                    await this.aLadyBot.MoveForward();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                this.ProgramState.SetCurrentIndex(idx);
+
+                this.StateHasChanged();
+
+                switch (command)
+                {
+                    case LadyBotCommand.MoveForward:
+                        await this.aLadyBot.MoveForward();
+                        break;
+                    case LadyBotCommand.RotateLeft:
+                        await this.aLadyBot.RotateLeft();
+                        break;
+                    case LadyBotCommand.RotateRight:
+                        await this.aLadyBot.RotateRight();
+                        break;
+                    case LadyBotCommand.MoveLeft:
+                        await this.aLadyBot.Rotate(Rotation.Left);
+                        await this.aLadyBot.MoveForward();
+                        break;
+                    case LadyBotCommand.MoveRight:
+                        await this.aLadyBot.Rotate(Rotation.Right);
+                        await this.aLadyBot.MoveForward();
+                        break;
+                    case LadyBotCommand.MoveUp:
+                        await this.aLadyBot.Rotate(Rotation.Up);
+                        await this.aLadyBot.MoveForward();
+                        break;
+                    case LadyBotCommand.MoveDown:
+                        await this.aLadyBot.Rotate(Rotation.Down);
+                        await this.aLadyBot.MoveForward();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
+        }
+        catch (BumpedException e)
+        {
         }
         this.ProgramState.Reset();
     }
