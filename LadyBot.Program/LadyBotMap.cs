@@ -12,7 +12,7 @@
 
 			this.InitialRotation = 0;
 
-			this.KeyboardType = KeyboardType.Rotational;
+			this.KeyboardType = KeyboardType.Directional;
 		}
 
 		public int Width { get; }

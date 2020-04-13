@@ -43,6 +43,7 @@
     {
         base.OnInitialized();
 
+        this.Program.OnChanged += this.StateHasChanged;
         this.ProgramState.OnCurrentChanged += this.StateHasChanged;
     }
 

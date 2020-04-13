@@ -8,6 +8,12 @@
     display: block;
     width: 100px;
     height: 100px;
+    cursor: pointer;
+    border: black 1px solid;
+}
+
+.keyboard img:hover {
+    background: lightgray;
 }
 
 .keyboard img.top-left {

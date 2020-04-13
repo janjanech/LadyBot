@@ -6,15 +6,15 @@
     @switch (this.Map.KeyboardType)
     {
         case KeyboardType.Directional:
-            <img src="/_content/LadyBot.Implementation/commands/move_up.svg" class="top"/>
-            <img src="/_content/LadyBot.Implementation/commands/move_down.svg" class="bottom"/>
-            <img src="/_content/LadyBot.Implementation/commands/move_left.svg" class="bottom-left"/>
-            <img src="/_content/LadyBot.Implementation/commands/move_right.svg" class="bottom-right"/>
+            <img src="/_content/LadyBot.Implementation/commands/move_up.svg" class="top" @onclick="() => this.Program.AddCommand(LadyBotCommand.MoveUp)"/>
+            <img src="/_content/LadyBot.Implementation/commands/move_down.svg" class="bottom" @onclick="() => this.Program.AddCommand(LadyBotCommand.MoveDown)"/>
+            <img src="/_content/LadyBot.Implementation/commands/move_left.svg" class="bottom-left" @onclick="() => this.Program.AddCommand(LadyBotCommand.MoveLeft)"/>
+            <img src="/_content/LadyBot.Implementation/commands/move_right.svg" class="bottom-right" @onclick="() => this.Program.AddCommand(LadyBotCommand.MoveRight)"/>
             break;
         case KeyboardType.Rotational:
-            <img src="/_content/LadyBot.Implementation/commands/move_up.svg" class="top"/>
-            <img src="/_content/LadyBot.Implementation/commands/rotate_left.svg" class="bottom-left"/>
-            <img src="/_content/LadyBot.Implementation/commands/rotate_right.svg" class="bottom-right"/>
+            <img src="/_content/LadyBot.Implementation/commands/move_up.svg" class="top" @onclick="() => this.Program.AddCommand(LadyBotCommand.MoveForward)"/>
+            <img src="/_content/LadyBot.Implementation/commands/rotate_left.svg" class="bottom-left" @onclick="() => this.Program.AddCommand(LadyBotCommand.RotateLeft)"/>
+            <img src="/_content/LadyBot.Implementation/commands/rotate_right.svg" class="bottom-right" @onclick="() => this.Program.AddCommand(LadyBotCommand.RotateRight)"/>
             break;
         default:
             throw new ArgumentOutOfRangeException();

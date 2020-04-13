@@ -16,6 +16,13 @@ namespace LadyBot.Program
 		public void AddCommand(LadyBotCommand ladyBotCommand)
 		{
 			this.aCommands.Add(ladyBotCommand);
+			this.OnChanged?.Invoke();
+		}
+
+		public void Reset()
+		{
+			this.aCommands.Clear();
+			this.OnChanged?.Invoke();
 		}
 
 		public IEnumerator<LadyBotCommand> GetEnumerator()
@@ -27,5 +34,7 @@ namespace LadyBot.Program
 		{
 			return this.GetEnumerator();
 		}
+
+		public event Action OnChanged;
 	}
 }

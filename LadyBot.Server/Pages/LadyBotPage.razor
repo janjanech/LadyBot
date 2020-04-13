@@ -6,23 +6,3 @@
 <h3>LadyBotPage</h3>
 
 <LadyBotPlayground />
-
-@code
-{
-    #region Overrides of ComponentBase
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Program.AddCommand(LadyBotCommand.MoveForward);
-        Program.AddCommand(LadyBotCommand.RotateLeft);
-        Program.AddCommand(LadyBotCommand.MoveForward);
-        Program.AddCommand(LadyBotCommand.RotateRight);
-        Program.AddCommand(LadyBotCommand.MoveForward);
-        Program.AddCommand(LadyBotCommand.MoveForward);
-        Program.AddCommand(LadyBotCommand.MoveForward);
-    }
-
-    #endregion
-}
