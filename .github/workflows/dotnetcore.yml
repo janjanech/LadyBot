@@ -16,15 +16,12 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.101
-    - name: Install dependencies
-      working-directory: LadyBot.Wasm
-      run: dotnet restore
+        dotnet-version: 3.1.102
     - name: Build
-      working-directory: LadyBot.Wasm
-      run: dotnet build --configuration Release --no-restore
+      working-directory: ./LadyBot.Wasm
+      run: dotnet build --configuration Release
     - name: Publish
-      working-directory: LadyBot.Wasm
+      working-directory: ./LadyBot.Wasm
       run: dotnet publish -c Release --no-build -o ../publish/
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
