@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LadyBot.Program
@@ -11,11 +10,13 @@ namespace LadyBot.Program
 		private readonly LadyBotProgramState aProgramState;
 		private readonly LadyBotProgram aProgram;
 		private ILadyBotCharacter aCharacter;
+		private CancellationTokenSource aCancellation;
 
 		public LadyBotController(LadyBotProgramState programState, LadyBotProgram program)
 		{
 			this.aProgramState = programState;
 			this.aProgram = program;
+			this.aCancellation = null;
 		}
 
 		public void AssignCharacter(ILadyBotCharacter character)
@@ -23,42 +24,52 @@ namespace LadyBot.Program
 			this.aCharacter = character;
 		}
 
+		public void StopProgram()
+		{
+			this.aCancellation?.Cancel();
+		}
+
 		public async Task RunProgramAsync()
 		{
+			this.aCancellation = new CancellationTokenSource();
+
+			var ct = this.aCancellation.Token;
+
 			this.aCharacter.Reset();
 
 			try
 			{
 				foreach (var (idx, command) in this.aProgram.Select((x, idx) => (idx, x)))
 				{
+					ct.ThrowIfCancellationRequested();
 					this.aProgramState.SetCurrentIndex(idx);
 
 					switch (command)
 					{
 						case LadyBotCommand.MoveForward:
-							await this.aCharacter.MoveForward();
+							await this.aCharacter.MoveForward(ct);
 							break;
 						case LadyBotCommand.RotateLeft:
-							await this.aCharacter.RotateLeft();
+							await this.aCharacter.RotateLeft(ct);
 							break;
 						case LadyBotCommand.RotateRight:
-							await this.aCharacter.RotateRight();
+							await this.aCharacter.RotateRight(ct);
 							break;
 						case LadyBotCommand.MoveLeft:
-							await this.aCharacter.Rotate(Rotation.Left);
-							await this.aCharacter.MoveForward();
+							await this.aCharacter.Rotate(Rotation.Left, ct);
+							await this.aCharacter.MoveForward(ct);
 							break;
 						case LadyBotCommand.MoveRight:
-							await this.aCharacter.Rotate(Rotation.Right);
-							await this.aCharacter.MoveForward();
+							await this.aCharacter.Rotate(Rotation.Right, ct);
+							await this.aCharacter.MoveForward(ct);
 							break;
 						case LadyBotCommand.MoveUp:
-							await this.aCharacter.Rotate(Rotation.Up);
-							await this.aCharacter.MoveForward();
+							await this.aCharacter.Rotate(Rotation.Up, ct);
+							await this.aCharacter.MoveForward(ct);
 							break;
 						case LadyBotCommand.MoveDown:
-							await this.aCharacter.Rotate(Rotation.Down);
-							await this.aCharacter.MoveForward();
+							await this.aCharacter.Rotate(Rotation.Down, ct);
+							await this.aCharacter.MoveForward(ct);
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
@@ -68,8 +79,13 @@ namespace LadyBot.Program
 			catch (BumpedException)
 			{
 			}
+			catch (TaskCanceledException)
+			{
+				this.aCharacter.Reset();
+			}
 
 			this.aProgramState.Reset();
+			this.aCancellation = null;
 		}
 	}
 }

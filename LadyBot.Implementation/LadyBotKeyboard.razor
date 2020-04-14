@@ -8,7 +8,7 @@
     <img src="_content/LadyBot.Implementation/icons/delete.svg" class="icon-left" @onclick="() => this.Program.Reset()" />
     @if (this.ProgramState.Running)
     {
-        <img src="_content/LadyBot.Implementation/icons/stop.svg" class="icon-right" />
+        <img src="_content/LadyBot.Implementation/icons/stop.svg" class="icon-right" @onclick="this.Controller.StopProgram" />
     }
     else
     {

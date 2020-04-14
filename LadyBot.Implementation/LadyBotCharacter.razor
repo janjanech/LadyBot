@@ -1,4 +1,5 @@
 ﻿@namespace LadyBot.Implementation
+@using System.Threading
 @using LadyBot.Program
 @inject LadyBotMap Map
 @implements ILadyBotCharacter
@@ -59,21 +60,21 @@
         this.StateHasChanged();
     }
 
-    public async Task MoveForward()
+    public async Task MoveForward(CancellationToken ct)
     {
         switch (this.aRotation)
         {
             case Rotation.Up:
-                await this.MoveInDirection(0, -1);
+                await this.MoveInDirection(0, -1, ct);
                 break;
             case Rotation.Right:
-                await this.MoveInDirection(1, 0);
+                await this.MoveInDirection(1, 0, ct);
                 break;
             case Rotation.Down:
-                await this.MoveInDirection(0, 1);
+                await this.MoveInDirection(0, 1, ct);
                 break;
             case Rotation.Left:
-                await this.MoveInDirection(-1, 0);
+                await this.MoveInDirection(-1, 0, ct);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -82,37 +83,37 @@
         this.StateHasChanged();
     }
 
-    private async Task MoveInDirection(int dx, int dy)
+    private async Task MoveInDirection(int dx, int dy, CancellationToken ct)
     {
         if (this.aX + dx < 0 || this.aX + dx >= this.Map.Width || this.aY + dy < 0 || this.aY + dy >= this.Map.Height)
             throw new BumpedException();
 
-        await this.DoAnimation(new LadyBotAnimation.Translation(this.aX + dx, this.aY + dy));
+        await this.DoAnimation(new LadyBotAnimation.Translation(this.aX + dx, this.aY + dy), ct);
         this.aX += dx;
         this.aY += dy;
     }
 
-    public async Task Rotate(int newRotation)
+    public async Task Rotate(int newRotation, CancellationToken ct)
     {
         if (newRotation == this.aRotation)
             return;
 
         newRotation = (newRotation + 360) % 360;
 
-        await this.DoAnimation(new LadyBotAnimation.Rotation(this.aRotation, newRotation));
+        await this.DoAnimation(new LadyBotAnimation.Rotation(this.aRotation, newRotation), ct);
         this.aRotation = newRotation;
 
         this.StateHasChanged();
     }
 
-    public async Task RotateRight()
+    public async Task RotateRight(CancellationToken ct)
     {
-        await this.Rotate(this.aRotation + 90);
+        await this.Rotate(this.aRotation + 90, ct);
     }
 
-    public async Task RotateLeft()
+    public async Task RotateLeft(CancellationToken ct)
     {
-        await this.Rotate(this.aRotation - 90);
+        await this.Rotate(this.aRotation - 90, ct);
     }
 
     #region Overrides of ComponentBase
@@ -126,13 +127,19 @@
 
     #endregion
 
-    private async Task DoAnimation(LadyBotAnimation animation)
+    private async Task DoAnimation(LadyBotAnimation animation, CancellationToken ct)
     {
         this.aAnimation = animation;
-
         this.StateHasChanged();
-        await Task.Delay(1100);
 
-        this.aAnimation = null;
+        try
+        {
+            await Task.Delay(1100, ct);
+        }
+        finally
+        {
+            this.aAnimation = null;
+            this.StateHasChanged();
+        }
     }
 }
