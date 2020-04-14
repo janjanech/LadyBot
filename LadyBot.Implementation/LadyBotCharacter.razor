@@ -1,6 +1,7 @@
 ﻿@namespace LadyBot.Implementation
 @using LadyBot.Program
 @inject LadyBotMap Map
+@implements ILadyBotCharacter
 
 <g transform="translate(@this.aX, @this.aY)">
     @if (this.aAnimation is LadyBotAnimation.Translation translateTransform)

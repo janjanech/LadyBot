@@ -1,6 +1,6 @@
-﻿namespace LadyBot.Implementation
+﻿namespace LadyBot.Program
 {
-	internal static class Rotation
+	public static class Rotation
 	{
 		public const int Up = 0;
 		public const int Right = 90;

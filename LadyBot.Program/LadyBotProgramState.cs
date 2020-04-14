@@ -28,6 +28,9 @@ namespace LadyBot.Program
 			this.OnCurrentChanged?.Invoke();
 		}
 
+		public bool Running
+			=> this.aCurrentIndex >= 0;
+
 		public event Action OnCurrentChanged;
 	}
 }

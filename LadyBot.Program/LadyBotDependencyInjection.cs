@@ -9,6 +9,7 @@ namespace LadyBot.Program
 			services.AddSingleton<LadyBotProgram>();
 			services.AddSingleton<LadyBotProgramState>();
 			services.AddSingleton<LadyBotMap>();
+			services.AddSingleton<LadyBotController>();
 		}
 	}
 }

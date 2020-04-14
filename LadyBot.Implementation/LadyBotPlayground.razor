@@ -1,8 +1,7 @@
 ﻿@using LadyBot.Program
 @namespace LadyBot.Implementation
-@inject LadyBotProgram Program
-@inject LadyBotProgramState ProgramState
 @inject LadyBotMap Map
+@inject LadyBotController Controller
 
 <svg viewBox="-0.1 -0.1 @(this.Map.Width).1 @(this.Map.Height).1" style="width: auto; height: auto; max-width: 100%; max-height: 80vh">
     @for (int y = 0; y < this.Map.Height; y++)
@@ -20,58 +19,21 @@
 
 <LadyBotKeyboard />
 
-<button @onclick="this.RunProgramAsync">Run</button>
-
 @code
 {
     private LadyBotCharacter aLadyBot;
 
-    public async Task RunProgramAsync()
+    #region Overrides of ComponentBase
+
+    protected override void OnAfterRender(bool firstRender)
     {
-        try
-        {
-            this.aLadyBot.Reset();
-            foreach (var (idx, command) in this.Program.Select((x, idx) => (idx, x)))
-            {
-                this.ProgramState.SetCurrentIndex(idx);
+        base.OnAfterRender(firstRender);
 
-                this.StateHasChanged();
-
-                switch (command)
-                {
-                    case LadyBotCommand.MoveForward:
-                        await this.aLadyBot.MoveForward();
-                        break;
-                    case LadyBotCommand.RotateLeft:
-                        await this.aLadyBot.RotateLeft();
-                        break;
-                    case LadyBotCommand.RotateRight:
-                        await this.aLadyBot.RotateRight();
-                        break;
-                    case LadyBotCommand.MoveLeft:
-                        await this.aLadyBot.Rotate(Rotation.Left);
-                        await this.aLadyBot.MoveForward();
-                        break;
-                    case LadyBotCommand.MoveRight:
-                        await this.aLadyBot.Rotate(Rotation.Right);
-                        await this.aLadyBot.MoveForward();
-                        break;
-                    case LadyBotCommand.MoveUp:
-                        await this.aLadyBot.Rotate(Rotation.Up);
-                        await this.aLadyBot.MoveForward();
-                        break;
-                    case LadyBotCommand.MoveDown:
-                        await this.aLadyBot.Rotate(Rotation.Down);
-                        await this.aLadyBot.MoveForward();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-        catch (BumpedException)
+        if (firstRender)
         {
+            this.Controller.AssignCharacter(this.aLadyBot);
         }
-        this.ProgramState.Reset();
     }
+
+    #endregion
 }
