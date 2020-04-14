@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="100"
+   height="100"
+   viewBox="0 0 100 100">
+  <circle
+     r="50"
+     cy="49.999954"
+     cx="50"
+     style="opacity:1;fill:#140cab;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3.59955001;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     />
+  <path
+     d="M 34.438477,24.2705 24.270508,34.4385 39.831055,50.001 24.270508,65.5615 34.438477,75.7295 49.999023,60.169 65.561523,75.7295 75.729492,65.5615 60.166992,50.001 75.729492,34.4385 65.561523,24.2705 49.999023,39.833 Z"
+     style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:8.63085938;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     />
+</svg>
