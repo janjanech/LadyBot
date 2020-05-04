@@ -12,8 +12,6 @@ namespace LadyBot.Wasm
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.RootComponents.Add<App>("app");
 
-			builder.Services.AddBaseAddressHttpClient();
-
 			builder.Services.AddLadyBot();
 
 			await builder.Build().RunAsync();
